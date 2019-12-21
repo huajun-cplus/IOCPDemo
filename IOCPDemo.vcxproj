@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\common\net\connection.cpp" />
+    <ClCompile Include="src\common\net\IoContext.cpp" />
+    <ClCompile Include="src\common\net\iocpBase.cpp" />
+    <ClCompile Include="src\common\net\IocpDef.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\common\net\connection.h" />
+    <ClInclude Include="src\common\net\IoContext.h" />
+    <ClInclude Include="src\common\net\iocpBase.h" />
+    <ClInclude Include="src\common\net\IocpDef.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{66505E7B-C4D7-46F3-A3CE-1B1046B55BD2}</ProjectGuid>
@@ -69,7 +81,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>temp\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -122,12 +137,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\common\net\IocpDef.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\common\net\IocpDef.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
