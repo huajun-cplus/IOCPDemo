@@ -15,7 +15,7 @@ IoContext::IoContext() {
 IoContext::~IoContext() {
     closeSocket(socket);
 
-    if (wsaBuf.buf != NULL) {
+    if (wsaBuf.buf != nullptr) {
         HeapFree(::GetProcessHeap(), 0, wsaBuf.buf);
     }
 }
@@ -23,7 +23,7 @@ IoContext::~IoContext() {
 void IoContext::clear() {
     ZeroMemory(&overLapped, sizeof(overLapped));
 
-    if (wsaBuf.buf != NULL) {
+    if (wsaBuf.buf != nullptr) {
         ZeroMemory(wsaBuf.buf, BUFF_SIZE);
     } else {
         wsaBuf.buf = (char *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, BUFF_SIZE);

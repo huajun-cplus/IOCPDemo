@@ -40,13 +40,13 @@ void CIocpBase::clear() {
 }
 
 bool CIocpBase::initIocp() {
-    this->m_iocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+    this->m_iocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, nullptr, 0, 0);
     return INVALID_HANDLE_VALUE != this->m_iocp;
 }
 
 bool CIocpBase::initListenSocket() {
     // 生成用于监听的Socket
-    this->m_listenSocket = WSASocketW(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+    this->m_listenSocket = WSASocketW(AF_INET, SOCK_STREAM, 0, nullptr, 0, WSA_FLAG_OVERLAPPED);
     if (INVALID_SOCKET == this->m_listenSocket) {
         return false;
     }
@@ -120,8 +120,8 @@ bool CIocpBase::initExFun() {
             &this->m_fnAcceptEx,
             sizeof(this->m_fnAcceptEx),
             &dwBytes,
-            NULL,
-            NULL)) {
+            nullptr,
+            nullptr)) {
         return false;
     }
 
@@ -133,8 +133,8 @@ bool CIocpBase::initExFun() {
             &this->m_fnGetAcceptExSockAddrs,
             sizeof(this->m_fnGetAcceptExSockAddrs),
             &dwBytes,
-            NULL,
-            NULL)) {
+            nullptr,
+            nullptr)) {
         return false;
     }
 
@@ -151,7 +151,7 @@ bool CIocpBase::initWorkerThread() {
 
     for (int i = 0; i < n32WorkerThreadNum; i++)
     {
-        m_vecWorkerThreads.emplace_back(CreateThread(0, 0, workerThreadProc, (void *)this, 0, 0));
+        m_vecWorkerThreads.emplace_back(CreateThread(0, 0, workerThreadProc, reinterpret_cast<void *>(this), 0, 0));
     }
 
     return true;
@@ -167,7 +167,7 @@ bool CIocpBase::initPostAccept() {
         }
 
         pIoContext->eType = eIoOpType::ACCEPT_POSTED;
-        pIoContext->socket = WSASocketW(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED);
+        pIoContext->socket = WSASocketW(AF_INET, SOCK_STREAM, 0, nullptr, 0, WSA_FLAG_OVERLAPPED);
 
         if (false == this->postAccept(*pIoContext))
         {
