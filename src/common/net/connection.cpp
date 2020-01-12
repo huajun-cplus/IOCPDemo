@@ -3,7 +3,7 @@
 #include "iocpDef.h"
 
 
-CConnection::CConnection(SOCKET _fd, const SOCKADDR_IN && _addr)
+CConnection::CConnection(SOCKET _fd, const SOCKADDR_IN &_addr)
     : socket(_fd)
     , m_addr(_addr){
 }

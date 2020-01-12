@@ -21,7 +21,8 @@ typedef unsigned int    uint32;
 #define EXIT_CODE           (-1)                    // 传递给Worker线程的退出信号
 #define DEFAULT_IP          ("127.0.0.1")           // 默认IP地址
 #define DEFAULT_PORT        (10240)                 // 默认端口
-
+#define KEEP_ALIVE_TIME     (1000 * 60)             // 多长时间没有数据就开始send心跳包(ms)
+#define KEEP_ALIVE_INTERVAL (1000 * 10);            // 每隔多长时间send一个心跳包(ms)
 
 void closeSocket(SOCKET &fd);
 void closeHandle(HANDLE &handle);

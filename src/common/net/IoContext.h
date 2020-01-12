@@ -17,6 +17,7 @@ public:
     IoContext();
     ~IoContext();
 
+    // 不负责socket的释放
     void clear();
 
     WSAOVERLAPPED       overLapped;        // 每个socket的每一个IO操作都需要一个重叠结构

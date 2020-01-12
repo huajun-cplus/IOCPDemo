@@ -5,6 +5,7 @@
 
 #include "iocpDef.h"
 
+class CConnection;
 struct IoContext;
 
 class CIocpBase
@@ -21,6 +22,16 @@ public:
     bool init(const std::string &strIp, uint16 u16Port);
     void clear();
 
+public:
+    // 新连接
+    virtual void onConnectionEstablished(CConnection &connection) = 0;
+    // 连接关闭
+    virtual void onConnectionClosed(CConnection &connection) = 0;
+    // 读操作完成
+    virtual void onRecvCompleted(CConnection &connection, IoContext &ioContext) = 0;
+    // 写操作完成
+    virtual void onSendCompleted(CConnection &connection, IoContext &ioContext) = 0;
+
 private:
     bool initIocp();
     bool initListenSocket();
@@ -29,6 +40,13 @@ private:
     bool initPostAccept();
 
     bool postAccept(IoContext &ioContext);
+    bool postRecv(IoContext &ioContext);
+    bool postSend(IoContext &ioContext);
+
+    void doAccpet(CConnection &connection, IoContext &ioContext);
+    void doRecv(CConnection &connection, IoContext &ioContext);
+    void doSend(CConnection &connection, IoContext &ioContext);
+    void doClose(CConnection &connection);
 
     static DWORD WINAPI workerThreadProc(LPVOID pParam); // 工作线程函数
 

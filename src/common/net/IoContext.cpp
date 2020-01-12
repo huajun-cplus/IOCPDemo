@@ -13,7 +13,7 @@ IoContext::IoContext() {
 }
 
 IoContext::~IoContext() {
-    closeSocket(socket);
+    socket = INVALID_SOCKET;
 
     if (wsaBuf.buf != nullptr) {
         HeapFree(::GetProcessHeap(), 0, wsaBuf.buf);
